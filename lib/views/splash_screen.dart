@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:eticket/Colors.dart';
 import 'package:eticket/views/userCheck.dart';
 import 'package:flutter/material.dart';
+import 'package:request_permission/request_permission.dart';
 
 
 
@@ -13,10 +14,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class StartState extends State<SplashScreen> {
+  RequestPermission requestPermission = RequestPermission.instace;
 
   @override
   void initState() {
     // TODO: implement initState
+    requestPermission.requestMultipleAndroidPermissions({
+      "android.permission.CAMERA",
+    }, 101);
     super.initState();
     startTime();
   }

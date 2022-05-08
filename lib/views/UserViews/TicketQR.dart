@@ -16,7 +16,7 @@ class TicketQr extends StatelessWidget {
       appBar: AppBar(title: const Text("Ticket QR"),backgroundColor: MyColors.blueColor,),
       body: Center(
         child: QrImage
-          (data: name+Provider.of<UserModel>(context, listen: false).email,
+          (data: name+","+Provider.of<UserModel>(context, listen: false).email,
 
         ),
       ),

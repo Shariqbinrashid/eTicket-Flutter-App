@@ -65,5 +65,36 @@ class WriteService{
     }
   }
 
+  static  Future<String?> approvePayment(String id)async{
+    try {
+      
+      
+       db.collection("tickets").doc(id).update({"bStatus":"true"});
+      return "1";
+    } on FirebaseException catch (e) {
+      return e.message;
+    }
+  }
+
+  static  Future<String?> approveTicket(String id)async{
+    try {
+
+
+      db.collection("tickets").doc(id).update({"vStatus":"true"});
+      return "1";
+    } on FirebaseException catch (e) {
+      return e.message;
+    }
+  }
+  static  Future<String?> declinePayment(String id)async{
+    try {
+
+
+      db.collection("tickets").doc(id).update({"bStatus":"false"});
+      return "1";
+    } on FirebaseException catch (e) {
+      return e.message;
+    }
+  }
 
 }

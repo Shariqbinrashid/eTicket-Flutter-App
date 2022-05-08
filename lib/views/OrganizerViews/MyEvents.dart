@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eticket/Colors.dart';
 import 'package:eticket/controller/readService.dart';
+import 'package:eticket/views/OrganizerViews/EventPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -137,26 +138,17 @@ class _MyEventsState extends State<MyEvents> {
                         ),
                       ),
                        onTap: (){
-                        print(data.docs[index]['name']);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>
+                              EventPage(eventName: data.docs[index]['name'],),
+                        )
+                        );
 
                        },
                     ),
 
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   children: <Widget>[
-                    //     TextButton(
-                    //       child: const Text('BUY TICKETS'),
-                    //       onPressed: () {/* ... */},
-                    //     ),
-                    //     const SizedBox(width: 8),
-                    //     TextButton(
-                    //       child: const Text('LISTEN'),
-                    //       onPressed: () {/* ... */},
-                    //     ),
-                    //     const SizedBox(width: 8),
-                    //   ],
-                    // ),
+
                   ],
                 ),
               );
