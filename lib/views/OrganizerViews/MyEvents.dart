@@ -116,7 +116,7 @@ class _MyEventsState extends State<MyEvents> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                      ListTile(
-                       
+                       trailing: Text("Ticket Price: Rs:"+data.docs[index]['price']),
                       leading: Icon(Icons.event,color: MyColors.yellowColor,),
                       title: Text(data.docs[index]['name'],style: TextStyle(fontSize: 30),),
                       subtitle: Container(
@@ -138,6 +138,7 @@ class _MyEventsState extends State<MyEvents> {
                       ),
                        onTap: (){
                         print(data.docs[index]['name']);
+
                        },
                     ),
 

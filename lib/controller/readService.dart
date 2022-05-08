@@ -13,4 +13,25 @@ class ReadService{
       return null;
     }
   }
+
+  static Stream<QuerySnapshot>? readTicket(String email){
+    try {
+      final result = db.collection("tickets").where(
+          "userEmail", isEqualTo: email).snapshots();
+      return result;
+    }
+    on FirebaseException catch (e) {
+      return null;
+    }
+  }
+
+  static Stream<QuerySnapshot>? readAllEvents(){
+    try {
+      final result = db.collection("events").snapshots();
+      return result;
+    }
+    on FirebaseException catch (e) {
+      return null;
+    }
+  }
 }
