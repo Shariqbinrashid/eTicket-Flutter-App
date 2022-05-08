@@ -2,14 +2,8 @@ import 'dart:async';
 
 import 'package:eticket/Colors.dart';
 import 'package:eticket/views/userCheck.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:eticket/views/login.dart';
-import 'package:provider/provider.dart';
-
-import '../controller/authentication.dart';
-import 'UserHome.dart';
 
 
 
@@ -34,7 +28,7 @@ class StartState extends State<SplashScreen> {
 
   route() {
     Navigator.pushReplacement(context, MaterialPageRoute(
-      builder: (context) => AuthenticationWrapper()
+      builder: (context) => userCheck()
     ));
   }
 
@@ -70,15 +64,16 @@ class StartState extends State<SplashScreen> {
     );
   }
 }
-class AuthenticationWrapper extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User?>();
-    context.read<AuthenticationService>().signOut();
-    if (firebaseUser != null) {
-      print(firebaseUser);
-      return UserHome();
-    }
-    return userCheck();
-  }
-}
+// class AuthenticationWrapper extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     final firebaseUser = context.watch<User?>();
+//
+//     context.read<AuthenticationService>().signOut();
+//     if (firebaseUser != null) {
+//       print(firebaseUser);
+//       return UserHome();
+//     }
+//     return userCheck();
+//   }
+// }

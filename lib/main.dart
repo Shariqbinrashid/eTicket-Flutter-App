@@ -1,3 +1,4 @@
+import 'package:eticket/state/userState.dart';
 import 'package:eticket/views/UserHome.dart';
 import 'package:eticket/views/splash_screen.dart';
 import 'package:eticket/views/userCheck.dart';
@@ -23,6 +24,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => UserModel(email: "", userType: '')
+        ),
         Provider<AuthenticationService>(
           create: (_) => AuthenticationService(FirebaseAuth.instance),
         ),

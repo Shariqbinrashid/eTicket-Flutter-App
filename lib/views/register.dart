@@ -5,11 +5,12 @@ import 'package:motion_toast/resources/arrays.dart';
 import 'package:provider/provider.dart';
 
 import '../controller/authentication.dart';
+import '../controller/writeService.dart';
 
 class MyRegister extends StatefulWidget {
 
-
-  const MyRegister({Key? key}) : super(key: key);
+  final String userType;
+  const MyRegister({Key? key, required this.userType}) : super(key: key);
 
   @override
   _MyRegisterState createState() => _MyRegisterState();
@@ -128,7 +129,16 @@ class _MyRegisterState extends State<MyRegister> {
                                         password: passwordController.text.trim(),
                                       );
                                       if(response=="Signed up"){
-                                        Navigator.pop(context, 'Account created');
+                                        String? response;
+                                        if(widget.userType=="user"){
+                                            response= await WriteService.addUser(email: emailController.text.trim());
+                                        }
+                                        else{
+                                          response= await WriteService.addOrganizer(email: emailController.text.trim());
+                                        }
+
+                                        if(response=='1')
+                                          Navigator.pop(context, 'Account created');
                                       }
                                       else{
                                         MotionToast.error(

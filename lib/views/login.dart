@@ -1,3 +1,4 @@
+import 'package:eticket/state/userState.dart';
 import 'package:eticket/views/UserHome.dart';
 import 'package:eticket/views/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,7 +27,8 @@ class _MyLoginState extends State<MyLogin> {
   @override
   Widget build(BuildContext context) {
 
-
+    return Consumer<UserModel>(
+        builder: (context, userModel, _) {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -106,26 +108,32 @@ class _MyLoginState extends State<MyLogin> {
                                         password: passwordController.text.trim(),
                                       );
                                       if(response=="Signed in"){
-                                        Navigator.pushReplacement(
+
+                                        userModel.setUserType(widget.userType);
+                                        userModel.setEmail(emailController.text.trim());
+
+                                        Navigator.pushAndRemoveUntil(
                                           context,
-                                          MaterialPageRoute(builder: (context) => widget.userType=="user"? UserHome():OrganizerHome()),
+                                          MaterialPageRoute(builder: (context) => widget.userType=="user"? UserHome():OrganizerHome()), (_) => false
                                         );
                                       }
                                       else{
-                                        MotionToast.error(
-                                          title: const Text(
-                                            'Error',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                        if(response!=null) {
+                                          MotionToast.error(
+                                            title: const Text(
+                                              'Error',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          ),
-                                          description: const Text('Please enter correct email and address'),
-                                          animationType: ANIMATION.fromLeft,
-                                          position: MOTION_TOAST_POSITION.top,
-                                          barrierColor: Colors.black.withOpacity(0.3),
-                                          width: 300,
-                                          dismissable: false,
-                                        ).show(context);
+                                            description: const Text('Please enter correct email and address'),
+                                            animationType: ANIMATION.fromLeft,
+                                            position: MOTION_TOAST_POSITION.top,
+                                            barrierColor: Colors.black.withOpacity(0.3),
+                                            width: 300,
+                                            dismissable: false,
+                                          ).show(context);
+                                        }
                                       }
                                     },
                                     icon: Icon(
@@ -144,7 +152,8 @@ class _MyLoginState extends State<MyLogin> {
                                 onPressed: () async{
                                   final result = await Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => const MyRegister()),
+                                    MaterialPageRoute(builder: (context) =>
+                                        MyRegister(userType: widget.userType,)),
                                   );
                                   ScaffoldMessenger.of(context)
                                     ..removeCurrentSnackBar()
@@ -182,6 +191,7 @@ class _MyLoginState extends State<MyLogin> {
           ],
         ),
       ),
+    );}
     );
   }
 }
