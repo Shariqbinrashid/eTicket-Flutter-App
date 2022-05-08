@@ -27,5 +27,20 @@ class WriteService{
     }
   }
 
+  static Future<String?> createEvent({required String name,required String description,required String date,required String email}) async {
+    final event = <String, dynamic>{
+      "name": name,
+      "description":description,
+      "date":date,
+      "organizerEmail":email
+    };
+    try {
+      await db.collection("events").add(event);
+      return "1";
+    } on FirebaseException catch (e) {
+      return e.message;
+    }
+  }
+
 
 }

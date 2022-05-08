@@ -3,6 +3,7 @@ import 'package:eticket/views/UserHome.dart';
 import 'package:eticket/views/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
 import 'package:provider/provider.dart';
@@ -103,12 +104,13 @@ class _MyLoginState extends State<MyLogin> {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () async{
+                                      Loader.show(context,progressIndicator:CircularProgressIndicator());
                                       String? response= await context.read<AuthenticationService>().signIn(
                                         email: emailController.text.trim(),
                                         password: passwordController.text.trim(),
                                       );
                                       if(response=="Signed in"){
-
+                                        Loader.hide();
                                         userModel.setUserType(widget.userType);
                                         userModel.setEmail(emailController.text.trim());
 
@@ -118,7 +120,8 @@ class _MyLoginState extends State<MyLogin> {
                                         );
                                       }
                                       else{
-                                        if(response!=null) {
+                                        Loader.hide();
+
                                           MotionToast.error(
                                             title: const Text(
                                               'Error',
@@ -131,9 +134,9 @@ class _MyLoginState extends State<MyLogin> {
                                             position: MOTION_TOAST_POSITION.top,
                                             barrierColor: Colors.black.withOpacity(0.3),
                                             width: 300,
-                                            dismissable: false,
+                                            dismissable: true,
                                           ).show(context);
-                                        }
+
                                       }
                                     },
                                     icon: Icon(
@@ -155,9 +158,11 @@ class _MyLoginState extends State<MyLogin> {
                                     MaterialPageRoute(builder: (context) =>
                                         MyRegister(userType: widget.userType,)),
                                   );
-                                  ScaffoldMessenger.of(context)
+                                  if(result!=null) {
+                                    ScaffoldMessenger.of(context)
                                     ..removeCurrentSnackBar()
                                     ..showSnackBar(SnackBar(content: Text('$result')));
+                                  }
                                 },
                                 child: const Text(
                                   'Sign Up',

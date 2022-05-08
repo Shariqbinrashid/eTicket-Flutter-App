@@ -1,13 +1,11 @@
 import 'package:eticket/Colors.dart';
-import 'package:eticket/views/login.dart';
 import 'package:eticket/views/userCheck.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../controller/authentication.dart';
-import '../state/userState.dart';
 import 'OrganizerViews/MyEvents.dart';
+import 'OrganizerViews/CreateEvent.dart';
 
 class OrganizerHome extends StatefulWidget {
   const OrganizerHome({Key? key}) : super(key: key);
@@ -61,10 +59,10 @@ class _OrganizerHomeState extends State<OrganizerHome> {
           ],
         ),
 
-        body: const TabBarView(
+        body:  TabBarView(
           children: [
-            MyEvents(),
-            Icon(Icons.directions_transit),
+            const MyEvents(),
+            CreateEvent()
           ],
         ),
       ),
