@@ -141,6 +141,10 @@ class _ApprovedTicketsState extends State<ApprovedTickets> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Text("Transaction ID:"),
+                                  Text(data.docs[index]['transactionID']),
+                                  Text("User Name:"),
+                                  Text(data.docs[index]['userName']),
                                   Text("Checkin Status: "),
                                   data.docs[index]['vStatus']=="false"?Row(
                                     children: const [

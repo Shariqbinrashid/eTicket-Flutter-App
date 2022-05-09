@@ -65,7 +65,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   if (result != null)
-                   Text('${result}')
+                   Text('${result}',style: TextStyle(fontSize: 20),)
                   else
                     const Text('Scan a code'),
                   Row(
